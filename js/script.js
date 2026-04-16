@@ -9,6 +9,8 @@ $(function() {
     var visa = $("#visa");
     var amex = $("#amex");
 
+    if (cardNumber.length === 0) return;
+
     // Use the payform library to format and validate
     // the payment fields.
 
