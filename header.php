@@ -127,9 +127,12 @@ session_start();
 						<li><?php
                              include "db.php";
                             if(isset($_SESSION["uid"])){
-                                $sql = "SELECT first_name FROM user_info WHERE user_id='$_SESSION[uid]'";
-                                $query = mysqli_query($con,$sql);
+                                $stmt = mysqli_prepare($con, "SELECT first_name FROM user_info WHERE user_id=?");
+                                mysqli_stmt_bind_param($stmt, "i", $_SESSION["uid"]);
+                                mysqli_stmt_execute($stmt);
+                                $query = mysqli_stmt_get_result($stmt);
                                 $row=mysqli_fetch_array($query);
+                                mysqli_stmt_close($stmt);
                                 
                                 echo '
                                <div class="dropdownn">

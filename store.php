@@ -148,6 +148,6 @@ include 'header.php';
 		</div>
 </div>
 <?php
-include "newslettter.php";
+include "newsletter.php";
 include "footer.php";
 ?>

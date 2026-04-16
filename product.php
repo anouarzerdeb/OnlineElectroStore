@@ -526,7 +526,7 @@ include "header.php";
 
 		<!-- FOOTER -->
 <?php
-include "newslettter.php";
+include "newsletter.php";
 include "footer.php";
 
 ?>
