@@ -27,7 +27,7 @@ session_start();
 		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
 
 		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
@@ -96,8 +96,11 @@ session_start();
        
         .glyphicon{
     display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
+    font-family: 'FontAwesome' !important;
+    font-style: normal;
+    font-weight: normal;
     font-size: inherit;
+    line-height: 1;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
