@@ -9,9 +9,9 @@ $errors = array();
 
 // connect to the database
 define('DB_SERVER', 'localhost');
-   define('DB_USERNAME', 'PuneethReddy');
+   define('DB_USERNAME', 'root');
    define('DB_PASSWORD', '');
-   define('DB_DATABASE', 'ecommerece');
+   define('DB_DATABASE', 'ecommerce');
    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
@@ -34,12 +34,15 @@ if (isset($_POST['reg_user'])) {
 	array_push($errors, "The two passwords do not match");
   }
 
-  // first check the database to make sure 
+  // first check the database to make sure
   // a user does not already exist with the same username and/or email
-  $user_check_query = "SELECT * FROM register WHERE Name='$username' OR email='$email' LIMIT 1";
-  $result = mysqli_query($db, $user_check_query);
+  $stmt = mysqli_prepare($db, "SELECT * FROM register WHERE Name=? OR email=? LIMIT 1");
+  mysqli_stmt_bind_param($stmt, "ss", $username, $email);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
   $user = mysqli_fetch_assoc($result);
-  
+  mysqli_stmt_close($stmt);
+
   if ($user) { // if user exists
     if ($user['Name'] === $username) {
       array_push($errors, "Username already exists");
@@ -52,11 +55,12 @@ if (isset($_POST['reg_user'])) {
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
-  	$password = md5($password_1);//encrypt the password before saving in the database
+  	$password = password_hash($password_1, PASSWORD_DEFAULT);
 
-  	$query = "INSERT INTO register (Name, email, password) 
-  			  VALUES('$username', '$email', '$password')";
-  	mysqli_query($db, $query);
+  	$stmt = mysqli_prepare($db, "INSERT INTO register (Name, email, password) VALUES(?, ?, ?)");
+  	mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
+  	mysqli_stmt_execute($stmt);
+  	mysqli_stmt_close($stmt);
   	$_SESSION['Name'] = $username;
   	$_SESSION['success'] = "You are now logged in";
   	header('location: index.php');
@@ -74,16 +78,23 @@ if (isset($_POST['login_user'])) {
   }
 
   if (count($errors) == 0) {
-  	$password = md5($password);
-  	$query = "SELECT * FROM register WHERE email='$username' AND password='$password'";
-  	$results = mysqli_query($db, $query);
+  	$stmt = mysqli_prepare($db, "SELECT * FROM register WHERE email=? LIMIT 1");
+  	mysqli_stmt_bind_param($stmt, "s", $username);
+  	mysqli_stmt_execute($stmt);
+  	$results = mysqli_stmt_get_result($stmt);
   	if (mysqli_num_rows($results) == 1) {
-  	  $_SESSION['email'] = $username;
-  	  $_SESSION['success'] = "You are now logged in";
-  	  header('location: index.php');
-  	}else {
+  	  $row = mysqli_fetch_assoc($results);
+  	  if (password_verify($password, $row['password'])) {
+  	    $_SESSION['email'] = $username;
+  	    $_SESSION['success'] = "You are now logged in";
+  	    header('location: index.php');
+  	  } else {
+  	    array_push($errors, "Wrong username/password combination");
+  	  }
+  	} else {
   		array_push($errors, "Wrong username/password combination");
   	}
+  	mysqli_stmt_close($stmt);
   }
 }
 

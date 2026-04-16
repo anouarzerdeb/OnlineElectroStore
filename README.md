@@ -1,27 +1,37 @@
-# OnlineElectroStore
-Das ist ein Online-Shop, der viele Kategorien enthält, und jede Kategorie enthält Artikel mit Spezifikationen über den Artikel oder das Produkt. Ich habe diese Website mit HTM, CSS, Javascript, PHP und MySQL erstellt
+# Online Electro Store
 
-#Wie installieren Sie lokal
+An e-commerce web application built with PHP, MySQL, HTML, CSS, and JavaScript. Features multiple product categories, shopping cart, user authentication, and an admin panel.
 
-1. Schritt: Datei extrahieren
-2. Schritt: Kopieren Sie den Hauptprojektordner
-3. Schritt: Einfügen in xampp/htdocs/
+## Features
 
-Datenbank wird jetzt verbunden
+- Product browsing with categories (Laptops, Smartphones, Cameras, Accessories)
+- Shopping cart functionality
+- User registration and login
+- Admin dashboard for managing products, users, and orders
+- Responsive design
 
-4. Schritt: Öffnen Sie einen Browser und gehen Sie zur URL „http://localhost/phpmyadmin/“
-5. Schritt: Klicken Sie dann auf die Registerkarte Datenbanken
-6. Schritt: Erstellen Sie eine Datenbank mit dem Namen "ecommerece" und klicken Sie dann auf die Registerkarte "Import“.
-7. Schritt: Klicken Sie auf Datei durchsuchen und wählen Sie die Datei "onlineshop.sql“ aus, die sich im Ordner "database“ befindet
-8. Schritt: Klicken Sie auf Los.
+## Installation
 
-Nach dem Erstellen der Datenbank,
+1. Extract the project files
+2. Copy the project folder to `xampp/htdocs/`
+3. Open a browser and go to `http://localhost/phpmyadmin/`
+4. Click the **Databases** tab
+5. Create a database named `ecommerce`
+6. Click the **Import** tab
+7. Browse and select the `database/onlineshop.sql` file
+8. Click **Go**
 
-9. Schritt: Öffnen Sie einen Browser und gehen Sie zur URL "http://localhost/online-shopping-system“
-Rufen Sie für das Admin-Panel die URL "http://localhost/online-shopping-system/admin/“ auf.
+After creating the database:
 
+9. Open a browser and go to `http://localhost/OnlineElectroStore/`
+10. For the Admin Panel: `http://localhost/OnlineElectroStore/admin/`
 
+## Tech Stack
 
+- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap
+- **Backend:** PHP
+- **Database:** MySQL
 
+## Author
 
-Admin-Anmeldedaten  Email=admin@gmail.com and Password=123456789.
+Anouar Zerdeb - anouarzerdeb@gmail.com
